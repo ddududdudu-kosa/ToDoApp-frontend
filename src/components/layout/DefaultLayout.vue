@@ -1,11 +1,12 @@
 <template>
-    <div class="default-layout">
-        <menu-compo class="menu"/>
-        <div class="content">
-            <router-view/> <!-- 주요 컨텐츠가 로드됩니다 -->
+        <div class="default-layout">
+            <menu-compo class="menu"/>
+            <div class="content">
+                <router-view/> <!-- 주요 컨텐츠가 로드됩니다 -->
+
+                <footer-compo class="footer sticky-bottom"/>
+            </div>
         </div>
-        <footer-compo class="footer"/>
-    </div>
 </template>
 
 <script>
