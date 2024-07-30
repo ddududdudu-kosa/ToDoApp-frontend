@@ -10,13 +10,13 @@
 }
 
 .content {
-  padding: 20px; /* 컨텐츠 패딩 */
+  padding: 0 20px; /* 컨텐츠 패딩 */
   overflow-y: auto; /* 필요시 스크롤 */
 }
 
 .footer {
     grid-column: 1 / -1; /* 푸터 전체 너비 사용 */
-    background-color: #f8f9fa;
+    background-color: #38f933;
     padding: 10px;
     text-align: center;
 }
