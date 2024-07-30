@@ -1,0 +1,36 @@
+/* DefaultLayout css*/
+.default-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr; /* 메뉴와 컨텐츠 영역 분할 */
+    height: 100vh;
+}
+
+.menu {
+  border-right: 1px solid #ccc; /* 메뉴와 컨텐츠 사이 경계 */
+}
+
+.content {
+  padding: 20px; /* 컨텐츠 패딩 */
+  overflow-y: auto; /* 필요시 스크롤 */
+}
+
+.footer {
+    grid-column: 1 / -1; /* 푸터 전체 너비 사용 */
+    background-color: #f8f9fa;
+    padding: 10px;
+    text-align: center;
+}
+
+
+/* LoginLayout css*/
+.login-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer {
+    margin-top: auto;
+}
