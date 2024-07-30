@@ -1,15 +1,13 @@
 <template>
-    <div class="text-decoration-underline">
-        list
+    <div class="">
+        <div></div>
     </div>
 </template>
 
 <script>
-export default {
-
-}
+export default {};
 </script>
 
 <style scoped>
-    @import "@/assets/list.css";
+@import '@/assets/list.css';
 </style>
