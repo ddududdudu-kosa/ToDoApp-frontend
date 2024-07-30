@@ -87,5 +87,6 @@ export default {
 </script>
 
 <style scoped>
+
 @import '@/assets/member.css';
 </style>

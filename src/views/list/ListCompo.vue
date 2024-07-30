@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="text-decoration-underline">
         list
     </div>
 </template>
@@ -11,5 +11,5 @@ export default {
 </script>
 
 <style scoped>
-    @import "@/assets/list.css"
+    @import "@/assets/list.css";
 </style>
