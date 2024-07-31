@@ -16,9 +16,10 @@
 
 .footer {
     grid-column: 1 / -1; /* 푸터 전체 너비 사용 */
-    background-color: #38f933;
+    background-color: white;
     padding: 10px;
     text-align: center;
+    height: 100px;
 }
 
 
