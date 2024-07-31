@@ -2,8 +2,8 @@
     <div class="form-signin" role="group">
         <b-container>
             <b-form @submit.prevent="onSubmit">
-                <h1 class="h3 mb-3 fw-normal" id="login-title">회원가입 페이지</h1>
-
+                <!-- <h1 class="h3 mb-3 fw-normal" id="login-title">회원가입 페이지</h1> -->
+                <img src="@/assets/todotodo-logo.png" alt="" />
                 <div class="form-floating">
                     <b-form-input
                         type="text"
@@ -84,7 +84,7 @@
                     <b-form-file v-model="file" class="mt-3" plain></b-form-file>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
-                <p class="mt-5 mb-3 text-muted">&copy; 2024</p>
+                <p class="mt-5 mb-3 text-muted copy">&copy; 2024 KOSA 4조 TODOTODO</p>
             </b-form>
         </b-container>
     </div>
@@ -213,7 +213,6 @@ export default {
 </script>
 
 <style scoped>
-
 @import '@/assets/member.css';
 .form-signin {
     width: 100%;
@@ -273,5 +272,19 @@ export default {
 }
 #profile {
     margin-bottom: 10px;
+}
+.container {
+    background-color: white;
+    border-radius: 10%;
+}
+img {
+    width: 100%;
+    align-items: center;
+    margin-top: 30px;
+}
+.copy {
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
 }
 </style>
