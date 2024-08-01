@@ -81,9 +81,13 @@
                 <!-- Plain mode -->
                 <div class="d-flex justify-content-between align-items-center" id="profile">
                     <label for="profile">프로필</label>
-                    <b-form-file v-model="file" class="mt-3" plain></b-form-file>
+
+                    <b-form-file v-model="file" class="mt-3" id="file" plain></b-form-file>
                 </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">회원가입</button>
+                <div class="checkbox mb-3" id="login-area">
+                    <router-link to="/" id="login-text">로그인</router-link>
+                </div>
                 <p class="mt-5 mb-3 text-muted copy">&copy; 2024 KOSA 4조 TODOTODO</p>
             </b-form>
         </b-container>
@@ -272,6 +276,7 @@ export default {
 }
 #profile {
     margin-bottom: 10px;
+    display: flex;
 }
 .container {
     background-color: white;
@@ -286,5 +291,38 @@ img {
     align-items: center;
     text-align: center;
     margin-top: 20px;
+}
+#file {
+    align-items: right;
+    text-align: right;
+    justify-content: flex-end;
+}
+input[type='file']::file-selector-button {
+    width: 150px;
+    height: 30px;
+    background: #fff;
+    border: 1px solid #0d6efd;
+    border-radius: 10px;
+    cursor: pointer;
+}
+input[type='file']::file-selector-button:hover {
+    background: #0d6efd;
+    color: #fff;
+}
+#login-area {
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+#login-text {
+    text-align: center;
+    align-items: center;
+    color: gray;
+    text-decoration-line: none;
+}
+
+#login-text:hover {
+    color: #0d6efd;
 }
 </style>

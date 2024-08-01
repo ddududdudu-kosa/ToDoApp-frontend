@@ -26,10 +26,10 @@
                     <label for="pwd">비밀번호</label>
                 </div>
 
-                <div class="checkbox mb-3">
-                    <router-link to="/signup"> 회원가입</router-link>
-                </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+                <div class="checkbox mb-3" id="signup-area">
+                    <router-link to="/signup" id="signup-text"> 회원가입</router-link>
+                </div>
                 <p class="mt-5 mb-3 text-muted copy" style="margin-top: 30px">&copy; 2024 KOSA 4조 TODOTODO</p>
             </b-form>
         </b-container>
@@ -151,5 +151,21 @@ img {
     align-items: center;
     text-align: center;
     margin-top: 20px;
+}
+#signup-area {
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+}
+
+#signup-text {
+    text-align: center;
+    align-items: center;
+    color: gray;
+    text-decoration-line: none;
+}
+
+#signup-text:hover {
+    color: #0d6efd;
 }
 </style>
