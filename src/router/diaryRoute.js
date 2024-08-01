@@ -5,7 +5,7 @@ import DiaryListCompo from '@/components/diary/DiaryListCompo.vue';
 
 export default [
     {
-        path: 'register',
+        path: 'diary/register',
         name: 'RegisterDiary',
         component: DiaryRegisterCompo,
     },

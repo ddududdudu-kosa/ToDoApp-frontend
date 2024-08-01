@@ -1,0 +1,255 @@
+.diary-register-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    font-size: 24px;
+    color: #333;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.back-button,
+.complete-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.back-button {
+    margin-right: auto;
+    padding: 0;
+}
+
+.complete-button {
+    margin-left: auto;
+}
+
+.back-image {
+    width: 30px;
+    height: 30px;
+}
+.user-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.diary-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#emojiView {
+    font-size: 100px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.emoji-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.emoji-button img {
+    width: 24px;
+    height: 24px;
+}
+
+.temperature-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+}
+.temperature-view > span {
+    font-size: 22px;
+    font-weight: bold;
+}
+.temperature-gauge {
+    width: 200px; /* 원하는 너비로 설정 */
+    height: 15px;
+    background-color: #ececec;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.temperature-fill {
+    height: 100%;
+    background-color: #38c3ff;
+    border-radius: 5px;
+}
+.line {
+    width: 98%;
+    height: 1px;
+    background-color: #999;
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #666;
+}
+
+.emoji-button {
+    width: 40px;
+}
+
+.temperature-view {
+    width: 200px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.form-group input[type='text'],
+.form-group input[type='date'],
+.form-group input[type='file'],
+.form-group textarea,
+.form-group button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.form-group input[type='text']::placeholder,
+.form-group textarea::placeholder {
+    color: #999;
+}
+
+.form-group textarea {
+    height: 550px;
+    resize: none;
+    overflow-y: auto;
+}
+
+.form-group input[type='range'] {
+    width: calc(100% - 20px);
+}
+
+.form-group span {
+    display: inline-block;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #999;
+}
+
+.uploaded-image {
+    margin-top: 10px;
+    max-width: 100px; /* 이미지 최대 너비 조정 */
+    height: auto; /* 이미지 높이 자동 조정 */
+    border-radius: 4px;
+}
+.form-group input[type='file'] {
+    display: none;
+}
+.file-upload-label {
+    cursor: pointer;
+}
+
+.photo-upload-image,
+.temperature-image {
+    width: 50px;
+    height: 50px;
+}
+
+.submit-button {
+    padding: 10px 15px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #0056b3;
+}
+
+.response-message {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #d9534f;
+}
+
+.emoji-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 100px; /* 이미지 너비 조정 */
+    height: auto; /* 이미지 높이 조정 */
+}
+.emoji-button img {
+    width: 100px; /* 이미지 너비 조정 */
+    height: auto; /* 이미지 높이 조정 */
+}
+
+.emoji-button span {
+    font-size: 35px; /* 이모지 텍스트 크기 조정 */
+}
+
+.bottom-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.bottom-bar > .form-group {
+    margin-right: 10px;
+}
+
+.img {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.uploaded-image {
+    min-width: 400px;
+    max-width: 800px;
+}
+
+.cancel {
+    margin-bottom: auto;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 20px;
+}
