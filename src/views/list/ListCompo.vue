@@ -18,7 +18,7 @@
 import axios from 'axios';
 import TodoListCompo from '@/views/list/TodoListCompo.vue';
 import DiaryListCompo from '@/views/list/DiaryListCompo.vue';
-import storyListCompo from '@/views/list/storyListCompo.vue';
+import storyListCompo from '@/views/list/StoryListCompo.vue';
 export default {
     data() {
         return {
