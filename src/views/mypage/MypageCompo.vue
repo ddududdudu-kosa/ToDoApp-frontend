@@ -1,7 +1,7 @@
 <template>
     <div class="main-content">
         <!-- Profile Info -->
-        <div class="d-flex align-items-center mb-4">
+        <div class="bg-secondary bg-opacity-10 p-4 rounded-3 d-flex align-items-center mb-4">
             <img :src="myInfo.profileImg" class="profile-img me-3" alt="Profile" />
             <div>
                 <h2 class="fs-4">
@@ -19,7 +19,7 @@
         </div>
 
         <!-- User Status -->
-        <div class="bg-light p-4 rounded-3 mb-4">
+        <div class="bg-secondary bg-opacity-10 p-4 rounded-3 mb-4">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <div class="d-flex align-items-center">
                     <img :src="nowMyRankImg" class="status-icon me-3" alt="Gold status icon" />
@@ -34,29 +34,42 @@
             <div class="row text-center">
                 <div class="col bg-white p-3 m-1 rounded-3">
                     <i class="fas fa-history fa-2x text-muted mb-2"></i>
-                    <p class="mb-0"><router-link to="/mypage/rating">등급보기</router-link></p>
+                    <img src="@/assets/rank.png" class="mypage-img-icon" />
+                    <p class="mb-0">
+                        <router-link to="/mypage/rating" class="router-link-text" id="rating-text"
+                            >등급보기</router-link
+                        >
+                    </p>
                 </div>
                 <div class="col bg-white p-3 m-1 rounded-3">
                     <i class="fas fa-trophy fa-2x text-muted mb-2"></i>
-                    <p class="mb-0"><router-link to="/mypage/rank">명예의 전당</router-link></p>
+                    <img src="@/assets/medal.png" class="mypage-img-icon" />
+                    <p class="mb-0">
+                        <router-link to="/mypage/rank" class="router-link-text" id="rating-text"
+                            >명예의 전당</router-link
+                        >
+                    </p>
                 </div>
             </div>
         </div>
         <router-view></router-view>
         <!-- Progress Bar -->
-        <div class="bg-light p-4 rounded-3 mb-4">
+        <h3 class="fs-5 mb-3">오늘의 달성도</h3>
+        <div class="bg-secondary bg-opacity-10 p-4 rounded-3 mb-4">
             <p class="text-center mb-3">
                 <i>{{ saying }}</i>
             </p>
-            <div class="progress mb-2">
+            <div class="progress mb-2 bg-white">
                 <div
-                    class="progress-bar progress-bar-custom"
+                    class="progress-bar progress-bar-custom progress-bar-striped progress-bar-animated"
                     role="progressbar"
                     :style="{ width: progressBarWidth + '%' }"
                     aria-valuemin="0"
                     aria-valuemax="100"
                     :aria-valuenow="progressBarWidth"
-                ></div>
+                >
+                    {{ progressBarWidth + '%' }}
+                </div>
             </div>
             <p class="text-end text-muted">{{ completeMessage }}</p>
         </div>
@@ -65,12 +78,12 @@
         <div>
             <h3 class="fs-5 mb-3">이번 달 투두 배틀</h3>
             <div class="row">
-                <div class="col bg-light p-4 rounded-3 text-center chart">
+                <div class="col bg-secondary bg-opacity-10 p-4 rounded-3 text-center chart">
                     <canvas ref="MyChart"> </canvas>
 
                     <p>달성갯수</p>
                 </div>
-                <div class="col bg-light p-4 rounded-3 text-center chart">
+                <div class="col bg-secondary bg-opacity-10 p-4 rounded-3 text-center chart">
                     <canvas ref="MyChart2"> </canvas>
 
                     <p>달성률</p>
@@ -232,8 +245,8 @@ export default {
             ];
 
             this.data2.datasets[0].data = [
-                this.myStats.monthlyAchievementRate,
-                this.myFollowStats.followMonthlyAchievementRate,
+                Math.round(this.myStats.monthlyAchievementRate * 100),
+                Math.round(this.myFollowStats.followMonthlyAchievementRate * 100),
             ];
             console.log(this.data);
             console.log(this.data2);
@@ -264,10 +277,19 @@ export default {
     },
     computed: {
         progressBarWidth() {
+            if (this.today === 0) {
+                return 0;
+            }
             return Math.round((this.complete / this.today) * 100);
         },
         completeMessage() {
-            return this.today === 0 ? '오늘 목표를 세우지 않았습니다!!' : this.today - this.complete;
+            if (this.today === 0) {
+                return '오늘 목표를 세우지 않았습니다!!';
+            } else if (this.today === this.complete) {
+                return '오늘 목표한 TODO를 전부 달성했습니다!!';
+            } else {
+                return this.today - this.complete + '개 남았습니다!!';
+            }
         },
         nowFollowsLen() {
             return this.totalFollow.length;
@@ -312,6 +334,7 @@ export default {
     margin-right: 20px; */
     padding: 20px;
 }
+
 .progress-bar-custom {
     background-color: #0d6efd;
 }
@@ -330,6 +353,21 @@ export default {
     border-radius: 50%;
 }
 .chart {
-    width: 50%;
+    width: 45%;
+}
+.mypage-img-icon {
+    border-radius: 50%;
+    border: solid 0.5px gray;
+    width: 12%;
+}
+.router-link-text {
+    text-decoration-line: none;
+    color: black;
+}
+#rating-text:hover {
+    color: #0d6efd;
+}
+#rank-text:hover {
+    color: #0d6efd;
 }
 </style>

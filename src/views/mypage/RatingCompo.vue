@@ -1,5 +1,5 @@
 <template>
-    <div class="bg-light p-4 rounded-3 mb-4">
+    <div class="bg-secondary bg-opacity-10 p-4 rounded-3 mb-4">
         <div class="level-item">
             <img src="@/assets/gold.png" class="level-icon" alt="Level 5 VIP icon" />
             <div div class="info">

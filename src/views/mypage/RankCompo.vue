@@ -1,7 +1,7 @@
 <template>
-    <div class="bg-light p-4 rounded-3 mb-4">
-        명예의 전당 (상위 5명)
-        <div class="bg-light p-4 rounded-3 mb-4">
+    <div class="bg-secondary bg-opacity-10 p-4 rounded-3 mb-4">
+        <span id="rank-title">명예의 전당 (상위 5명)</span>
+        <div class="bg-light p-4 rounded-3 mb-4 rank-body">
             <div class="level-item" v-for="item in items" :key="item.id">
                 <img :src="item.profileImg" class="level-icon" />
                 <div class="info">
@@ -78,5 +78,8 @@ export default {
     align-items: center;
     justify-content: space-between; /* 좌우 여백을 자동으로 분배 */
     width: 100%;
+}
+.rank-body {
+    margin-top: 10px;
 }
 </style>
