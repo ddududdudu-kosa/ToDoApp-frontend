@@ -1,8 +1,29 @@
-import MypageCompo from "@/views/mypage/MypageCompo";
+import MypageCompo from '@/views/mypage/MypageCompo';
+import MyRecordCompo from '@/views/mypage/MyRecordCompo';
+import RankCompo from '@/views/mypage/RankCompo';
+import RatingCompo from '@/views/mypage/RatingCompo';
 
 export default [
-    { 
-        name : "MypageCompo",
-        path : "/mypage",
-        component : MypageCompo},
-]
+    {
+        name: 'MypageCompo',
+        path: '/mypage',
+        component: MypageCompo,
+        children: [
+            {
+                name: 'MyRecordCompo',
+                path: '/mypage/record',
+                component: MyRecordCompo,
+            },
+            {
+                name: 'RankCompo',
+                path: '/mypage/rank',
+                component: RankCompo,
+            },
+            {
+                name: 'RatingCompo',
+                path: '/mypage/rating',
+                component: RatingCompo,
+            },
+        ],
+    },
+];
