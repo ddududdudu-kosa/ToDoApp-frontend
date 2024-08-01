@@ -2,7 +2,8 @@
     <div class="form-signin">
         <b-container>
             <b-form @submit.prevent="onSubmit">
-                <h1 class="h3 mb-3 fw-normal" id="login-title">로그인 페이지</h1>
+                <img src="@/assets/todotodo-logo.png" alt="" />
+                <!-- <h1 class="h3 mb-3 fw-normal" id="login-title">로그인 페이지</h1> -->
 
                 <div class="form-floating">
                     <b-form-input
@@ -25,14 +26,11 @@
                     <label for="pwd">비밀번호</label>
                 </div>
 
-                <div class="checkbox mb-3">
-                    <router-link to="/signup"> 회원가입</router-link>
-                    <b-button class="email-confirm" id="email-confirm" variant="outline-primary" @click="logout"
-                        >로그아웃</b-button
-                    >
-                </div>
                 <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
-                <p class="mt-5 mb-3 text-muted">&copy; 2024</p>
+                <div class="checkbox mb-3" id="signup-area">
+                    <router-link to="/signup" id="signup-text"> 회원가입</router-link>
+                </div>
+                <p class="mt-5 mb-3 text-muted copy" style="margin-top: 30px">&copy; 2024 KOSA 4조 TODOTODO</p>
             </b-form>
         </b-container>
     </div>
@@ -58,6 +56,9 @@ const login = async (email, password) => {
 
     if (res.status === 200) {
         // 토큰과 이메일을 세션스토리지에 저장
+        if (sessionStorage.getItem('access') !== null) {
+            sessionStorage.clear();
+        }
         sessionStorage.setItem('access', res.headers['access']);
         sessionStorage.setItem('email', email);
         return true;
@@ -92,11 +93,16 @@ export default {
             sessionStorage.clear();
         },
     },
+    mounted: function () {
+        if (sessionStorage.getItem('access') !== null) {
+            alert('로그아웃 되었습니다.');
+        }
+        sessionStorage.clear();
+    },
 };
 </script>
 
 <style scoped>
-
 @import '@/assets/member.css';
 .form-signin {
     width: 100%;
@@ -132,5 +138,34 @@ export default {
 #login-icon {
     justify-content: center;
 }
-</style>
+img {
+    width: 100%;
+    align-items: center;
+    margin-top: 15px;
+}
+.container {
+    background-color: white;
+    border-radius: 10%;
+}
+.copy {
+    align-items: center;
+    text-align: center;
+    margin-top: 20px;
+}
+#signup-area {
+    margin-top: 20px;
+    text-align: center;
+    align-items: center;
+}
 
+#signup-text {
+    text-align: center;
+    align-items: center;
+    color: gray;
+    text-decoration-line: none;
+}
+
+#signup-text:hover {
+    color: #0d6efd;
+}
+</style>

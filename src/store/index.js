@@ -1,16 +1,22 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import ListStore from '@/store/list-store';
-
 Vue.use(Vuex);
-const store = new Vuex.Store({
-    modules: {
-        // 필수
-        counts: ListStore,
+
+export default new Vuex.Store({
+    state: {
+        user: {
+            email: '', // 로그인한 사용자 이메일
+        },
+    },
+    mutations: {
+        setUserEmail(state, email) {
+            state.user.email = email;
+        },
+    },
+    actions: {
+        setUserEmail({ commit }, email) {
+            commit('setUserEmail', email);
+        },
     },
 });
-
-console.log('index.js', 'ㅁㅁ'); // store.state 필수
-
-export default store;

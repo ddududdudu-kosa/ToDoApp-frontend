@@ -1,15 +1,18 @@
 <template>
     <div id="footercompo">
-        <label>todotodo</label>
-        <label>소개</label>
-        <label>블로그</label>
-        <label>채용</label>
-        <label>도움말</label>
-        <label>API</label>
-        <label>약관</label>
-        <label>todotodo Verified</label>
-        <label>2024 todotodo from KOSA</label>
-
+        <div>
+            <label>todotodo</label>
+            <label>소개</label>
+            <label>블로그</label>
+            <label>채용</label>
+            <label>도움말</label>
+            <label>API</label>
+            <label>약관</label>
+            <label>todotodo Verified</label>
+        </div>
+        <div>
+            <label>2024 todotodo from KOSA</label>
+        </div>
     </div>
 </template>
 

@@ -7,40 +7,48 @@
             {{ todo.task }}
             </li>
         </ul>
-        <input v-if="showInput[category.id]" type="text" @keyup.enter="addTodo(category.id, newTodo[category.id])" v-model="newTodo[category.id]" placeholder="Add a new task"/>
+        <input v-if="showInput[category.id]" type="text" @keyup.enter="addTodo(category.id, newTodo[category.id])" v-model="newTodo[category.id]" placeholder="할 일을 쓰세요 !"/>
         </div>
     </div>
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
+    props : ["myInfoId"],
     data() {
-        return {
-        value: new Date(),
-        categories: [
-            { id: 1, name: 'Work', todos: [{ id: 11, task: 'Meeting at 10am' }] },
-            { id: 2, name: 'Home', todos: [] },
-            { id: 3, name: 'Other', todos: [{ id: 31, task: 'Gym at 6pm' }] }
-        ],
-        showInput: {},
-        newTodo: {}
+    return {
+        dateSelected: null,
+        categories: [], // 초기 카테고리 배열
+        todos: [], // 선택된 날짜에 대한 할 일 배열
         };
     },
     methods: {
-        toggleInput(categoryId) {
-        // Toggle input display state
-        this.$set(this.showInput, categoryId, !this.showInput[categoryId]);
-        },
-        addTodo(categoryId, task) {
-        if (!task) return;
-        const category = this.categories.find(c => c.id === categoryId);
-        category.todos.push({
-            id: Date.now(), // simple unique id generator
-            task: task
-        });
-        this.newTodo[categoryId] = ''; // Clear input field
-        this.showInput[categoryId] = false; // Optionally hide the input field after adding
+    async fetchCategories() {
+        try {
+            console.log(33)
+            console.log("ㅋmyInfoId : " + this.myInfoId)
+            
+            const response = await axios.get(`http://localhost:8080/api/categories/${this.myInfoId}`);
+            this.categories = response.data;
+            console.log("111111111111111111111111111")
+        } catch (error) {
+            console.error('Error fetching categories:', error);
         }
+        },
+    async fetchTodosByDate(date) {
+        console.log("ddddddddddddddddddddddddddd")
+        try {
+            const response = await axios.get(`http://localhost:8080/api/todos/member/${this.myInfoId}/todos?date=${date}`);
+            this.todos = response.data;
+        } catch (error) {
+            console.error('Error fetching todos:', error);
+        }
+    }
+    },
+    mounted() {
+        this.fetchCategories();       
     }
 }
 </script>

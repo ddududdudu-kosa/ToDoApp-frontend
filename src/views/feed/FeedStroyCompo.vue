@@ -1,9 +1,11 @@
 <template>
-    <div class="story-container">
-        <div class="story" v-for="user in users" :key="user.id">
-            <img :src="user.profileImage" :alt="user.name" class="profile-image"/>
-            <span class="user-name">{{ user.name }}</span>
-        </div>
+    <div>
+        <ul>
+        <li v-for="(user, index) in users" :key="user.id || index">
+            {{ user.name }} <!-- user.title 대신 user.name으로 수정, 이미지 사용 예제도 추가 -->
+            <img :src="user.profileImage" alt="Profile Image">
+        </li>
+        </ul>
     </div>
 </template>
 
@@ -14,8 +16,8 @@ export default {
         users: [
             { id: 1, name: 'JohnDoe', profileImage: 'path/to/image1.jpg' },
             { id: 2, name: 'JaneDoe', profileImage: 'path/to/image2.jpg' },
-            { id: 2, name: 'JaneDoe', profileImage: 'path/to/image2.jpg' },
-            { id: 2, name: 'JaneDoe', profileImage: 'path/to/image2.jpg' },
+            { id: 3, name: 'JaneDoe', profileImage: 'path/to/image2.jpg' },
+            { id: 4, name: 'JaneDoe', profileImage: 'path/to/image2.jpg' },
         ]
     }
     }
