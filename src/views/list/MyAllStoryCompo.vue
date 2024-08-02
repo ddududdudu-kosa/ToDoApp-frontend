@@ -1,7 +1,9 @@
 <template>
     <div class="row">
         <div class="col-1" style="background-color: #343434">
-            <div style="color: white">뒤로가기</div>
+            <button id="backButton" @click="goBack" style="font-size: 40px">
+                <i class="fa-solid fa-angle-left" style="color: white"> </i>
+            </button>
         </div>
         <div class="col-6" style="background-color: #343434; height: 100vh">
             <vueper-slides
@@ -100,6 +102,9 @@ export default {
     },
 
     methods: {
+        goBack() {
+            window.history.back();
+        },
         setCurrentStoryId(id) {
             this.currentStoryId = id;
             console.log(`현재 선택된 스토리 ID: ${this.currentStoryId}`);
@@ -251,30 +256,17 @@ export default {
     opacity: 1;
     border-color: #000;
 }
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    z-index: 9000;
-    border-radius: 8px;
-}
-
-.modal-content {
-    background-color: white;
-    padding: 20px;
-    border-radius: 5px;
-}
-
-.button {
-    margin-top: 10px;
-    padding: 10px 20px;
-    cursor: pointer;
-}
 
 input[type='file'] {
     margin: 10px 0;
+}
+
+#backButton {
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    color: inherit; /* 상속된 색상 사용 */
+    padding: 0; /* 패딩 제거 */
+    cursor: pointer; /* 마우스 커서를 포인터로 설정 */
+    outline: none; /* 누를 때 테두리 제거 */
 }
 </style>
