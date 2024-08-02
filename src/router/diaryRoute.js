@@ -10,12 +10,12 @@ export default [
         component: DiaryRegisterCompo,
     },
     {
-        path: 'list',
+        path: 'diary/list',
         name: 'DiaryList',
         component: DiaryListCompo,
     },
     {
-        path: ':id',
+        path: 'diary/:id',
         name: 'DiaryDetail',
         component: DiaryDetailCompo,
         props: true, // props를 통해 데이터 전달

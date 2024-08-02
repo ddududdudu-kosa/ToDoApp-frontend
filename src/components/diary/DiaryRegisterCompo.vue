@@ -190,14 +190,25 @@ export default {
                     },
                 });
 
-                if (response.status !== 200) {
+                // 응답이 성공적이고 생성된 다이어리 ID가 존재할 경우
+                if (response.status === 200) {
+                    const createdDiaryId = await response.data.id; // 서버 응답에서 다이어리 ID 추출
+                    if (createdDiaryId) {
+                        this.responseMessage = 'Diary created successfully!';
+                        // 다이어리 뷰로 이동하면서 ID 전달
+                        this.$router.push({
+                            name: 'DiaryDetail',
+                            params: { id: createdDiaryId }, // 서버 응답의 다이어리 ID 사용
+                        });
+                        this.resetForm();
+                    } else {
+                        throw new Error('Failed to retrieve diary ID');
+                    }
+                } else {
                     throw new Error('Diary creation failed');
                 }
-
-                this.uploadedImage = response.data;
-                this.responseMessage = 'Diary created successfully!';
-                this.resetForm();
             } catch (error) {
+                console.error('Error during diary creation:', error);
                 this.errorMessage = error.message;
             }
         },
