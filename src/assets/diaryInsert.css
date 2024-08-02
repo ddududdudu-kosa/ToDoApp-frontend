@@ -5,6 +5,8 @@
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-height: 100vh; /* 전체 화면 높이로 설정 */
+    padding-bottom: 70px; /* 푸터를 위한 공간 확보 */
 }
 
 .header {
