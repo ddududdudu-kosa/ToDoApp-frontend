@@ -5,7 +5,7 @@
         </div>
         <div class="col-10" style="background-color: #343434; height: 100vh">
             <div class="stories-wrapper">
-                <div class="stories" v-if="stories.length > 0">
+                <div class="stories" v-if="stories.length > 0" @mouseenter="pauseStory" @mouseleave="play">
                     <!--story.id  storyImg title totalLikes createAt memberId-->
                     <div
                         v-for="(story, index) in stories"
@@ -19,6 +19,25 @@
                         @click="index !== indexSelected ? selectSlide(index) : ''"
                     >
                         <div class="story__source">
+                            <div
+                                class="like-button"
+                                @click="toggleLike(story.images[index].stoId, index)"
+                                style="color: hotpink"
+                            >
+                                {{ story.images[index].totalLikes }}
+                                <i :class="{ liked: isLiked(story.images[index].stoId) }" class="fa fa-heart"></i>
+                            </div>
+
+                            <!--                            <button @click="toggleLike(story.id)">-->
+                            <!--                                <i-->
+                            <!--                                    :class="{-->
+                            <!--                                        fa: true,-->
+                            <!--                                        'fa-heart': isLiked(story.id),-->
+                            <!--                                        'fa-heart-o': !isLiked(story.id),-->
+                            <!--                                    }"-->
+                            <!--                                ></i>-->
+                            <!--                            </button>-->
+
                             <img :src="getSrc(story, index).url" alt="" />
                             <div class="story__header" v-if="index === indexSelected">
                                 <div class="time">
@@ -102,6 +121,8 @@ export default {
     data() {
         return {
             stories: [],
+            likedStories: {}, // 스토리별 좋아요 상태
+            myInfoList: [],
             indexSelected: 0,
             difference: 0,
             key: 0,
@@ -162,6 +183,38 @@ export default {
         },
     },
     methods: {
+        async toggleLike(storyId, index) {
+            // 좋아요 상태 토글 로직 구현
+            console.log('좋아요 토글');
+            const currentState = this.likedStories[storyId] || false;
+            this.likedStories[storyId] = !currentState;
+            const data = {
+                memberId: this.myInfoList.id,
+                like: this.likedStories[storyId] ? 1 : 0,
+            };
+            // 서버에 좋아요 상태 변경 요청
+            try {
+                const response = await axios.post(`http://localhost:8080/stories/${storyId}/like`, data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        access: sessionStorage.getItem('access'),
+                    },
+                    withCredentials: true,
+                });
+                console.log('좋아요 updated:', response.data);
+                // 로컬 상태
+                if (data.like === 1) {
+                    this.stories[index].images.find((img) => img.stoId === storyId).totalLikes += 1;
+                } else {
+                    this.stories[index].images.find((img) => img.stoId === storyId).totalLikes -= 1;
+                }
+            } catch (error) {
+                console.error('좋아요 업데이트 실패:', error);
+            }
+        },
+        isLiked(storyId) {
+            return !!this.likedStories[storyId];
+        },
         goToMyStories() {
             this.$router.push('/stories/my'); // /stories/my 경로로 라우팅
         },
@@ -216,6 +269,19 @@ export default {
                 console.log('ㅁㅁㅁㅁView confirmation sent for stoId:', stoId, 'Response:', response.data);
             } catch (error) {
                 console.error('Error sending view confirmation:', error);
+            }
+        },
+        async getMyInfo() {
+            try {
+                const res = await axios.get('http://localhost:8080/mypage', {
+                    headers: {
+                        access: sessionStorage.getItem('access'),
+                    },
+                    withCredentials: true,
+                });
+                this.myInfoList = res.data.myInfoList; // 직접 데이터를 설정
+            } catch (error) {
+                console.error('Error fetching diaries:', error);
             }
         },
         // 밑으로 복사
@@ -392,6 +458,10 @@ export default {
         this.selectSlide(this.currentIndex);
     },
     async created() {
+        if (sessionStorage.getItem('access')) {
+            this.getMyInfo();
+        }
+
         await this.fetchStories();
         console.log(this.user);
     },
@@ -543,7 +613,7 @@ export default {
         }
 
         &--prev {
-            left: -15%;
+            left: -10%;
 
             @media screen and (max-width: 768px) {
                 left: 0;
@@ -551,7 +621,7 @@ export default {
         }
 
         &--next {
-            right: -480%;
+            right: -10%;
             transform: translateY(-50%) rotate(180deg);
 
             @media screen and (max-width: 768px) {
@@ -612,5 +682,19 @@ export default {
         background: #ffffff;
         height: 2px;
     }
+}
+.like-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    font-size: 24px; /* 하트 크기 조절 */
+}
+.like-button i {
+    color: grey; /* 기본 상태 */
+    cursor: pointer;
+}
+
+.like-button .liked {
+    color: hotpink; /* 좋아요 눌렀을 때 상태 */
 }
 </style>
