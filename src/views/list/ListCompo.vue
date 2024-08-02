@@ -1,3 +1,6 @@
+<!-- 작성자 : 전민재
+    기능 :  일기, 할일목록 리스트 -->
+
 <template>
     <div>
         <b-nav tabs style="display: flex; justify-content: space-around">

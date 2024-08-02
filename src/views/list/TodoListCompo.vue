@@ -1,3 +1,6 @@
+<!-- 작성자 : 전민재
+    기능 :  투두 리스트 -->
+
 <template>
     <div>
         <div v-for="user in todoList" :key="user.memberId" class="user-entry mb-3">

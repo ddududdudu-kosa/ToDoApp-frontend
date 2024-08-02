@@ -1,3 +1,5 @@
+<!-- 작성자 : 김종현
+    기능 : feed 화면 -->
 <template>
     <div>
         <story-list-compo></story-list-compo>

@@ -1,3 +1,6 @@
+<!-- 작성자 : 전민재
+    기능 :  스토리 관리 -->
+
 <template>
     <div class="row">
         <div class="col-1" style="background-color: #343434">

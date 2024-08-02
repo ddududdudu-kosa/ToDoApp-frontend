@@ -1,3 +1,5 @@
+<!-- 작성자 : 김가은
+    기능 : pop화면 -->
 <template>
     <div class="popup">
         <div class="popup-content">
