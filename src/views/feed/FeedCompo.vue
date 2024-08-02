@@ -56,7 +56,7 @@
 
                             </li>
                         </ul>
-                        <input v-if="showInput[category.id]" class="todo-input-underline" type="text" @keyup.enter="addTodo(category.id, newTodo[category.id])" v-model="newTodo[category.id]" placeholder="할 일 입력 !"/>
+                        <input v-if="showInput[category.id]" class="todo-input-underline" type="text" @keyup.enter.prevent.stop="addTodo(category.id, newTodo[category.id])" v-model="newTodo[category.id]" placeholder="할 일 입력 !"/>
                     </div>
                 </b-col>
             </b-row>
@@ -165,6 +165,7 @@ export default {
             }
         },
         async addTodo(categoryId, task) {
+            console.log("addTodo called", { categoryId, task });
             if (!task || !this.user.id) return;
             const adjustedDate = new Date(this.dateSelected);
             adjustedDate.setDate(this.dateSelected.getDate() + 1); // Add one day to the selected date
@@ -198,6 +199,7 @@ export default {
                 this.todos.splice(index, 1); // 클라이언트 상태에서 해당 Todo 제거
                 // Todo가 정상적으로 삭제되었는지 화면에 반영되는지 확인
                 console.log("Current todos after deletion:", this.todos);
+                location.reload(true);
             } catch (error) {
                 console.error('Error deleting todo:', error);
             }
