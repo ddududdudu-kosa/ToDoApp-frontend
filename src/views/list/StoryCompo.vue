@@ -202,7 +202,7 @@ export default {
                     withCredentials: true,
                 });
                 console.log('좋아요 updated:', response.data);
-                // 로컬 상태 업데이
+                // 로컬 상태
                 if (data.like === 1) {
                     this.stories[index].images.find((img) => img.stoId === storyId).totalLikes += 1;
                 } else {
