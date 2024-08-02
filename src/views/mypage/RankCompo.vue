@@ -1,3 +1,4 @@
+<!-- 작성자 : leejongseop(이종섭) -->
 <template>
     <div class="bg-secondary bg-opacity-10 p-4 rounded-3 mb-4">
         <span id="rank-title">명예의 전당 (상위 5명)</span>
