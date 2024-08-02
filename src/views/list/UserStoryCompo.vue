@@ -1,3 +1,6 @@
+<!-- 작성자 : 전민재
+    기능 :  UserStory -->
+
 <template>
     <div>
         <!--        <h1>{{ this.$route.params.userId }}번 유저의 Stories</h1>-->

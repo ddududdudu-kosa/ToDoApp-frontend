@@ -1,3 +1,6 @@
+<!-- 작성자 : 김종현
+    기능 : feed 화면 -->
+
 <template>
     <div class='demo-app'>
         <div class='demo-app-sidebar'>

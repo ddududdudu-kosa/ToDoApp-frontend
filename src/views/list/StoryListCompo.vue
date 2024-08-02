@@ -1,3 +1,6 @@
+<!-- 작성자 : 전민재
+    기능 :  스토리 리스트 -->
+
 <template>
     <div class="story-bar" style="height: 150px">
         <!-- RelationType 1 -->

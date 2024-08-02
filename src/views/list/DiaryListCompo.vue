@@ -1,3 +1,5 @@
+<!-- 작성자 : 전민재
+    기능 :  일기 리스트 -->
 <template>
     <div class="diary-container">
         <div v-for="item in diaryList" :key="item.id" class="diary-entry" @click="navigateToDiary(item.id)">

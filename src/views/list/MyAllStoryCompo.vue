@@ -1,3 +1,6 @@
+<!-- 작성자 : 전민재
+    기능 : 스토리 리스트 나오게 하는 것 -->
+
 <template>
     <div class="row">
         <div class="col-1" style="background-color: #343434">

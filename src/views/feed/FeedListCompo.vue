@@ -1,3 +1,5 @@
+<!-- 작성자 : 김종현
+    기능 : feed 화면 -->
 <template>
     <div class="tasks-container">
         <div v-for="category in categories" :key="category.id">
