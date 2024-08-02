@@ -1,8 +1,8 @@
 <template>
     <div>
-        <b-nav tabs>
-            <b-nav-item @click="setActive('todo')">Todo</b-nav-item>
-            <b-nav-item @click="setActive('diary')">Diary</b-nav-item>
+        <b-nav tabs style="display: flex; justify-content: space-around">
+            <b-nav-item :class="{ activeItem: activeItem === 'todo' }" @click="setActive('todo')">Todo</b-nav-item>
+            <b-nav-item :class="{ activeItem: activeItem === 'diary' }" @click="setActive('diary')">Diary</b-nav-item>
         </b-nav>
         <story-list-compo></story-list-compo>
         <div v-if="activeItem === 'todo'">
@@ -52,4 +52,10 @@ export default {
 
 <style scoped>
 @import '@/assets/list.css';
+.nav-link {
+    color: black; /* 활성 탭 글씨 색상 */
+}
+.activeItem .nav-link {
+    color: #0d6efd; /* 활성 탭 글씨 색상 */
+}
 </style>

@@ -1,7 +1,9 @@
 <template>
     <div class="row">
         <div class="col-1" style="background-color: #343434">
-            <div style="color: white">뒤로가기</div>
+            <button id="backButton" @click="goBack" style="font-size: 40px">
+                <i class="fa-solid fa-angle-left" style="color: white"> </i>
+            </button>
         </div>
         <div class="col-10" style="background-color: #343434; height: 100vh">
             <div class="stories-wrapper">
@@ -183,6 +185,10 @@ export default {
         },
     },
     methods: {
+        goBack() {
+            window.history.back();
+        },
+
         async toggleLike(storyId, index) {
             // 좋아요 상태 토글 로직 구현
             console.log('좋아요 토글');
@@ -696,5 +702,13 @@ export default {
 
 .like-button .liked {
     color: hotpink; /* 좋아요 눌렀을 때 상태 */
+}
+#backButton {
+    background: none; /* 배경 제거 */
+    border: none; /* 테두리 제거 */
+    color: inherit; /* 상속된 색상 사용 */
+    padding: 0; /* 패딩 제거 */
+    cursor: pointer; /* 마우스 커서를 포인터로 설정 */
+    outline: none; /* 누를 때 테두리 제거 */
 }
 </style>

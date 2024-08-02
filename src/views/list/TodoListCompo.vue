@@ -1,27 +1,29 @@
 <template>
     <div>
-        <hr />
-        <hr />
         <div v-for="user in todoList" :key="user.memberId" class="user-entry mb-3">
-            <h3>이름 {{ user.nickname }}</h3>
-            <h3>{{ user.memberId }}</h3>
-            <img
-                :src="user.profileImg"
-                alt="profile image"
-                class="profile-img mb-2"
-                style="width: 50px; height: 50px"
-            />
-            <p>Privacy: {{ user.privacy }}</p>
-            <div v-for="(todo, index) in user.checkedTodos.slice(0, 4)" :key="index" class="todo-entry row">
-                <p class="col-md-3">{{ index }} ㅁContents: {{ todo.contents }}</p>
-                <p class="col-md-2">Date: {{ todo.date }}</p>
-                <p class="col-md-2">
-                    Color: <span :style="{ color: todo.color }">{{ todo.color }}</span>
-                </p>
-                <p class="col-md-2">Category Order: {{ todo.cateOrder }}</p>
-                <p class="col-md-3">Todo Order: {{ todo.todoOrder }}</p>
+            <div class="profile-container">
+                <div class="profile-header row">
+                    <img
+                        :src="user.profileImg"
+                        alt="profile image"
+                        style="margin-left: 50px; padding: 0px"
+                        class="profile-img col-3"
+                    />
+                    <h3 class="col-7" style="text-align: start; padding-top: 5px; margin-left: 10px">
+                        {{ user.nickname }}
+                    </h3>
+                </div>
+                <ul class="todo-list">
+                    <li v-for="(todo, index) in user.checkedTodos.slice(0, 4)" :key="index" class="todo-entry">
+                        <i
+                            class="fa fa-check-circle"
+                            :style="{ color: todo.color }"
+                            style="font-size: 24px; margin-right: 10px"
+                        ></i>
+                        <span style="padding-bottom: 3px">{{ todo.contents }}</span>
+                    </li>
+                </ul>
             </div>
-            <hr />
         </div>
     </div>
 </template>
@@ -73,15 +75,39 @@ export default {
 </script>
 
 <style scoped>
-.user-entry {
-    background-color: #f8f9fa;
-    padding: 10px;
-    border-radius: 5px;
+.profile-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-.todo-entry .col-md {
-    padding: 0 5px; /* 열 사이의 패딩 조절 */
+
+.profile-header {
+    text-align: center;
 }
+
 .profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
     margin-bottom: 10px;
+}
+
+.todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.todo-entry {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.todo-entry span {
+    flex: 1; /* Ensure the text takes up the rest of the line */
 }
 </style>

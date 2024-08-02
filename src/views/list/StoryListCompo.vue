@@ -1,22 +1,24 @@
 <template>
-    <div class="story-bar">
-        <div class="story">
-            <img class="story-image" />
-        </div>
-
+    <div class="story-bar" style="height: 150px">
         <!-- RelationType 1 -->
         <div
+            style="margin-left: 10px; margin-right: 10px"
             v-if="typeOneUsers.length > 0"
-            class="user-entry"
+            class="user-entry scroll"
             @click="goToUserStories(typeOneUsers[0].id, typeOneUsers[0].profileImg, typeOneUsers[0].nickname)"
         >
+            <div class="storyCircle" style="z-index: 1">
+                <img src="https://goo.gl/zYrXX3" alt="" />
+                <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" />
+                </svg>
+            </div>
             <img
                 :src="typeOneUsers[0].profileImg"
                 alt="profile image"
                 :class="['profile-img', { noStory: !typeOneUsers[0].actStory }]"
             />
-            <p>Nickname: {{ typeOneUsers[0].nickname }}</p>
-            <p>Relation Type: {{ typeOneUsers[0].relationType }}</p>
+            <p class="nickname">{{ typeOneUsers[0].nickname }}</p>
         </div>
 
         <hr />
@@ -25,12 +27,17 @@
         <div
             v-for="user in filteredTypeTwoUsers"
             :key="user.id"
-            class="user-entry"
+            class="user-entry scroll"
             @click="goToUserStories(user.id, user.profileImg, user.nickname)"
         >
+            <div class="storyCircle" style="z-index: 1">
+                <img src="https://goo.gl/zYrXX3" alt="" />
+                <svg viewbox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" />
+                </svg>
+            </div>
             <img :src="user.profileImg" alt="profile image" :class="['profile-img', { visited: user.visited }]" />
-            <p>Nickname: {{ user.nickname }}</p>
-            <p>Relation Type: {{ user.relationType }}</p>
+            <p class="nickname">{{ user.nickname }}</p>
         </div>
     </div>
 </template>
@@ -40,6 +47,7 @@ import axios from 'axios';
 export default {
     data() {
         return {
+            hovering: false,
             users: [],
             userIdList: [],
             typeOneUsers: [],
@@ -101,35 +109,78 @@ export default {
     overflow-x: auto;
     white-space: nowrap;
 }
-.story {
-    margin: 5px;
-    width: 60px; /* 스토리 이미지의 크기를 조정 */
-    height: 60px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-.story-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .user-entry {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* 부모를 상대 위치로 설정 */
+    margin: 20px 5px 10px;
     padding: 10px;
     border-radius: 5px;
 }
 .profile-img {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
-    margin-right: 10px;
+    object-fit: cover; /* 이미지 비율 유지 */
+    z-index: 2; /* 이미지를 위로 */
+}
+.nickname {
+    position: absolute; /* 절대 위치 사용 */
+    color: #343434; /* 글씨 색상 */
+    z-index: 3; /* 텍스트를 이미지 위에 위치 */
+    padding: 5px 10px; /* 패딩 설정 */
+    border-radius: 15px; /* 경계 둥글게 */
+    bottom: -20%; /* 텍스트 위치 조정 */
 }
 .visited {
-    border: 3px solid grey;
+    border: 5px solid grey;
 }
 .noStory {
     border: 3px solid blue;
+}
+
+.storyCircle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+.storyCircle img {
+    width: 70px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.storyCircle svg {
+    fill: none;
+    stroke: #8a3ab8;
+    stroke-width: 4px;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 0;
+    stroke-linecap: round;
+    animation: loading 4500ms ease-in-out infinite alternate;
+}
+@keyframes loading {
+    100% {
+        stroke: #cd476b;
+        stroke-dasharray: 10;
+        transform: rotate(0deg);
+    }
+}
+
+/* ( 크롬, 사파리, 오페라, 엣지 ) 동작 */
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+/* 스크롤바 생성 */
+.scroll {
+    overflow-y: scroll;
 }
 </style>

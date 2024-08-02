@@ -1,46 +1,14 @@
 <template>
-    <div>
-        <!--        <hr />-->
-        <!--        <hr />-->
-        <!--        <div v-if="diaryList.length > 0" class="diary-entry">-->
-        <!--            <p class="diaryDate">{{ diaryList[0].diaryDate }}</p>-->
-        <!--            &lt;!&ndash; 날짜 데이터가 필요한 경우 추가 &ndash;&gt;-->
-        <!--            <p class="emoji">{{ diaryList[0].emoji }}</p>-->
-        <!--            &lt;!&ndash; 이모티콘 데이터가 필요한 경우 추가 &ndash;&gt;-->
-        <!--            <p class="id">{{ diaryList[0].id }}</p>-->
-        <!--            <p class="memberId">{{ diaryList[0].memberId }}</p>-->
-        <!--            <p class="nickname">{{ diaryList[0].nickname }}</p>-->
-        <!--            <p class="privacy">{{ diaryList[0].privacy }}</p>-->
-        <!--            <img-->
-        <!--                :src="diaryList[0].profileImg"-->
-        <!--                alt="profile image"-->
-        <!--                class="profile-img"-->
-        <!--                style="width: 50px; height: 50px"-->
-        <!--            />-->
-        <!--            <p class="temperature">{{ diaryList[0].temperature }}</p>-->
-        <!--            &lt;!&ndash; 온도 데이터가 필요한 경우 추가 &ndash;&gt;-->
-        <!--            <p class="title">{{ diaryList[0].title }}</p>-->
-        <!--            &lt;!&ndash; 제목 데이터가 필요한 경우 추가 &ndash;&gt;-->
-        <!--        </div>-->
-
-        <hr />
-        <hr />
-
-        <div v-for="item in diaryList" :key="item.id" class="diary-entry">
-            <p class="diaryDate">{{ item.diaryDate }}</p>
-            <!-- 날짜 데이터가 필요한 경우 추가 -->
-            <p class="emoji">{{ item.emoji }}</p>
-            <!-- 이모티콘 데이터가 필요한 경우 추가 -->
-            <p class="id">{{ item.id }}</p>
-            <p class="memberId">{{ item.memberId }}</p>
+    <div class="diary-container">
+        <div v-for="item in diaryList" :key="item.id" class="diary-entry" @click="navigateToDiary(item.id)">
+            <div class="profile-section">
+                <img :src="item.profileImg" alt="profile image" class="profile-img" />
+            </div>
             <p class="nickname">{{ item.nickname }}</p>
-            <p class="privacy">{{ item.privacy }}</p>
-            <img :src="item.profileImg" alt="profile image" class="profile-img" style="width: 50px; height: 50px" />
-            <p class="temperature">{{ item.temperature }}</p>
-            <!-- 온도 데이터가 필요한 경우 추가 -->
-            <p class="title">{{ item.title }}</p>
-            <!-- 제목 데이터가 필요한 경우 추가 -->
-            <hr />
+
+            <p class="emoji" style="margin-left: 10px">{{ item.emoji }}</p>
+
+            <p class="title" style="margin-left: 10px">{{ item.title }}</p>
         </div>
     </div>
 </template>
@@ -54,6 +22,9 @@ export default {
         };
     },
     methods: {
+        navigateToDiary(id) {
+            this.$router.push('/diary/' + id);
+        },
         async getDiaries() {
             try {
                 const res = await axios.get('http://localhost:8080/diary/recentList', {
@@ -84,4 +55,52 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.diary-container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+}
+
+.diary-entry {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.diary-entry:hover {
+    background-color: #e2e2e2;
+}
+
+.profile-section {
+    margin-right: 15px;
+}
+
+.profile-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.nickname,
+.emoji,
+.title {
+    margin: 2px 0;
+    color: #333;
+}
+
+.nickname {
+    font-weight: bold;
+}
+
+.title {
+    font-size: 0.9em;
+    color: #666;
+}
+</style>
