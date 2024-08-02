@@ -202,7 +202,12 @@ export default {
                     withCredentials: true,
                 });
                 console.log('좋아요 updated:', response.data);
-                // this.stories[index].images.find((img) => img.stoId === storyId).totalLikes += 1;
+                // 로컬 상태
+                if (data.like === 1) {
+                    this.stories[index].images.find((img) => img.stoId === storyId).totalLikes += 1;
+                } else {
+                    this.stories[index].images.find((img) => img.stoId === storyId).totalLikes -= 1;
+                }
             } catch (error) {
                 console.error('좋아요 업데이트 실패:', error);
             }
