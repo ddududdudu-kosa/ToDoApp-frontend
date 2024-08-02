@@ -1,6 +1,7 @@
 <template>
     <div>
         <div>민재가 작업할 내용이 들어갈 곳</div>
+
         <div class="feed-myinfo">
             <img class="myinfo-img" :src="user.profileImage" :alt="user.nickname" />
             <div>
@@ -24,7 +25,9 @@
                 </b-col>
                 <b-col>
                     <div>
-                        <button @click="showCategoryInput = !showCategoryInput">카테고리 추가</button>
+                        <b-button @click="showCategoryInput = !showCategoryInput" variant="success"
+                            >카테고리 추가</b-button
+                        >
                         <div v-if="showCategoryInput">
                             <input type="text" v-model="newCategoryContent" placeholder="카테고리 내용" />
                             <input type="text" v-model="newCategoryColor" placeholder="카테고리 색상" />
@@ -33,11 +36,13 @@
                     </div>
                     <div v-for="category in categories" :key="category.id" class="category-item">
                         <div class="category-header">
-                            <h3 @click="toggleInput(category.id)">
+                            <h6 @click="toggleInput(category.id)">
                                 <template v-if="editCategory && editCategory.id === category.id">
                                     <input
                                         type="text"
+                                        class="input-underline"
                                         v-model="editCategory.contents"
+                                        :style="{ backgroundColor: '#7a7a7a', color: '#e8e8e7' }"
                                         @keyup.enter="saveCategory"
                                         @blur="saveCategory"
                                     />
@@ -45,16 +50,23 @@
                                 <template v-else>
                                     {{ category.contents }}
                                 </template>
-                            </h3>
+                            </h6>
                             <div class="category-actions">
-                                <button @click="startEditingCategory(category)">수정</button>
-                                <button @click="deleteCategory(category.id)">삭제</button>
+                                <!-- <button @click="startEditingCategory(category)">수정</button> -->
+                                <b-button @click="startEditingCategory(category)" variant="outline-primary"
+                                    >수정</b-button
+                                >
+                                <b-button @click="deleteCategory(category.id)" variant="outline-danger">삭제</b-button>
                             </div>
                         </div>
                         <ul v-if="category.todos && category.todos.length">
-                            <li v-for="(todo, todoIndex) in category.todos" :key="todo.id || todoIndex">
+                            <li
+                                class="todo-list"
+                                v-for="(todo, todoIndex) in category.todos"
+                                :key="todo.id || todoIndex"
+                            >
                                 <input type="checkbox" :checked="todo.status === 1" @change="updateTodoStatus(todo)" />
-                                <button @click="deleteTodo(todo.id, todoIndex)">삭제</button>
+
                                 <div v-if="editTodo && editTodo.id === todo.id">
                                     <input
                                         type="text"
@@ -63,30 +75,45 @@
                                         @blur="saveTodo"
                                     />
                                 </div>
-                                <div v-else @dblclick="startEditing(todo)">{{ todo.task }} - {{ todo.contents }}</div>
+                                <div v-else @dblclick="startEditing(todo)">
+                                    {{ todo.contents }}
+                                </div>
+                                <b-button
+                                    class="small-button"
+                                    @click="deleteTodo(todo.id, todoIndex)"
+                                    variant="outline-danger"
+                                    >삭제</b-button
+                                >
                             </li>
                         </ul>
                         <input
                             v-if="showInput[category.id]"
+                            class="todo-input-underline"
                             type="text"
                             @keyup.enter="addTodo(category.id, newTodo[category.id])"
                             v-model="newTodo[category.id]"
-                            placeholder="Add a new task"
+                            placeholder="할 일 입력 !"
                         />
                     </div>
                 </b-col>
             </b-row>
         </div>
         <p v-if="!categories.length">No categories available.</p>
-
-        >>>>>>> ea76a5e49d59f9bb8f6a7fdd20f580fe79623ff7
+        <popup v-if="showPopup" @close="closePopup">{{ popupMessage }}</popup>
+        <!-- 가은추가 -->
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Popup from './PopupCompo.vue'; // 가은추가
 
 export default {
+    components: {
+        // 가은 추가
+        Popup,
+    },
+
     data() {
         return {
             user: {
@@ -292,10 +319,25 @@ export default {
                 );
                 console.log('Category updated:', response.data);
                 this.fetchCategories(); // Refresh the categories
+                this.refreshTodosForCategory(this.editCategory.id);
+
                 this.editCategory = null; // Clear the edit state
             } catch (error) {
                 console.error('Error updating category:', error);
             }
+        },
+        refreshTodosForCategory(categoryId) {
+            axios
+                .get(`/api/todos/${categoryId}`)
+                .then((response) => {
+                    const index = this.categories.findIndex((c) => c.id === categoryId);
+                    if (index !== -1) {
+                        this.categories[index].todos = response.data; // todo 목록 갱신
+                    }
+                })
+                .catch((error) => {
+                    console.error('Todo 목록 갱신 실패:', error);
+                });
         },
         async deleteCategory(categoryId) {
             if (!confirm('이 카테고리에 포함된 모든 할 일이 삭제됩니다. 계속하시겠습니까?')) {
@@ -338,6 +380,17 @@ export default {
                 console.error('Error adding category:', error);
             }
         },
+        invertColor(hex) {
+            if (hex.indexOf('#') === 0) {
+                hex = hex.slice(1);
+            }
+            // 헥사 코드를 RGB로 변환하고 밝기를 계산
+            const r = parseInt(hex.substr(0, 2), 16);
+            const g = parseInt(hex.substr(2, 2), 16);
+            const b = parseInt(hex.substr(4, 2), 16);
+            // 밝기에 따라 검은색 또는 흰색 반환
+            return r * 0.299 + g * 0.587 + b * 0.114 > 186 ? '#000000' : '#FFFFFF';
+        },
         updateCategoriesWithTodos() {
             console.log('Updating categories with todos');
             console.log('Current categories:', this.categories);
@@ -351,6 +404,48 @@ export default {
         toggleInput(categoryId) {
             this.$set(this.showInput, categoryId, !this.showInput[categoryId]);
         },
+        //가은추가,수정 시작
+        async navigateToDiary(receivedDate) {
+            let date = new Date(receivedDate);
+            if (isNaN(date.getTime())) {
+                this.showPopupMessage('선택된 날짜가 유효하지 않습니다.');
+                return;
+            }
+
+            const formattedDate = date.toISOString().split('T')[0];
+            const today = new Date().toISOString().split('T')[0];
+
+            if (formattedDate > today) {
+                this.showPopupMessage('미래의 일기는 작성할 수 없습니다.');
+                setTimeout(() => {
+                    this.$router.push('/feed');
+                }, 2000);
+                return;
+            }
+
+            try {
+                const response = await axios.post('http://localhost:8080/api/check-diary', {
+                    email: sessionStorage.getItem('email'),
+                    selectedDate: formattedDate,
+                });
+
+                if (response.data.diaryExists) {
+                    this.$router.push(`/diary/view/${response.data.diaryId}`);
+                } else {
+                    this.$router.push('/diary/register');
+                }
+            } catch (error) {
+                console.error('Error navigating to diary:', error);
+            }
+        },
+        showPopupMessage(message) {
+            this.popupMessage = message;
+            this.showPopup = true;
+        },
+        closePopup() {
+            this.showPopup = false;
+        },
+        //가은 수정,추가 일단 끝
     },
     mounted() {
         if (sessionStorage.getItem('access') === null) {

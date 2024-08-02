@@ -16,6 +16,9 @@
         </div>
 
         <form @submit.prevent="submitDiaryForm" class="diary-form">
+            <div class="form-group">
+                <input type="date" v-model="diary.dDate" required readonly />
+            </div>
             <div class="form-group-head">
                 <button type="button" @click="toggleEmojiPicker" class="emoji-button">
                     <img v-if="selectedEmoji === ''" src="@/assets/image/emoji.png" alt="Emoji" />
@@ -46,11 +49,6 @@
                     :placeholder="`${user.nickname}님의 오늘은 어떤 하루였나요?`"
                     required
                 ></textarea>
-            </div>
-
-            <div class="form-group">
-                <label for="dDate">Date:</label>
-                <input type="date" v-model="diary.dDate" required />
             </div>
             <div class="bottom-bar">
                 <div class="form-group">
@@ -221,9 +219,17 @@ export default {
         goBack() {
             this.$router.go(-1); // 뒤로 가기
         },
+        getTodayDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더합니다.
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        },
     },
     created() {
         this.fetchUserInfo(); // 컴포넌트가 생성될 때 사용자 정보 가져오기
+        this.diary.dDate = this.getTodayDate(); // 오늘 날짜 설정
     },
 };
 </script>
