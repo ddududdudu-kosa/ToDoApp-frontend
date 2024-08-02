@@ -3,6 +3,8 @@ import MyRecordCompo from '@/views/mypage/MyRecordCompo';
 import RankCompo from '@/views/mypage/RankCompo';
 import RatingCompo from '@/views/mypage/RatingCompo';
 
+// 작성자 : 이종섭(leejongseop)
+
 export default [
     {
         name: 'MypageCompo',
