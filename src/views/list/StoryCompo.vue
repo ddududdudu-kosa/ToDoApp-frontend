@@ -33,16 +33,6 @@
                                 <i :class="{ liked: isLiked(story.images[index].stoId) }" class="fa fa-heart"></i>
                             </div>
 
-                            <!--                            <button @click="toggleLike(story.id)">-->
-                            <!--                                <i-->
-                            <!--                                    :class="{-->
-                            <!--                                        fa: true,-->
-                            <!--                                        'fa-heart': isLiked(story.id),-->
-                            <!--                                        'fa-heart-o': !isLiked(story.id),-->
-                            <!--                                    }"-->
-                            <!--                                ></i>-->
-                            <!--                            </button>-->
-
                             <img :src="getSrc(story, index).url" alt="" />
                             <div class="story__header" v-if="index === indexSelected">
                                 <div class="time">
@@ -108,7 +98,7 @@
                     </div>
                 </div>
                 <!-- 없으면 추가! -->
-                <div v-else>스토리 없음 추가 ㄱㄱㄱ</div>
+                <div v-else class="no-stories">스토리가 없습니다. 추가해주세요</div>
             </div>
         </div>
         <div class="col-1" style="background-color: #343434">
@@ -175,7 +165,8 @@ export default {
             return this.indexSelected >= this.stories.length - 1 && this.isCurrentAllImagesEnd;
         },
         isCurrentAllImagesEnd() {
-            return this.key >= this.stories[this.indexSelected].images.length - 1;
+            const currentStory = this.stories[this.indexSelected];
+            return currentStory && currentStory.images && this.key >= currentStory.images.length - 1;
         },
     },
     watch: {
@@ -293,25 +284,7 @@ export default {
                 console.error('Error fetching diaries:', error);
             }
         },
-        // 밑으로 복사
 
-        // getSrc(story, index) {
-        //     const viewedIndex = this.getLastViewedIndex(story);
-        //     return index === this.indexSelected
-        //         ? {
-        //               url: story.images[this.key].url,
-        //           }
-        //         : {
-        //               url: story.images[viewedIndex].url,
-        //           };
-        // },
-        // getSrc(story, index) {
-        //     const viewedIndex = this.getLastViewedIndex(story);
-        //     const image = index === this.indexSelected ? story.images[this.key] : story.images[viewedIndex];
-        //     this.currentImage = image.url; // 이미지 URL 변경
-        //     this.currentStoId = image.stoId; // 현재 이미지의 stoId 저장
-        //     return { url: this.currentImage };
-        // },
         getSrc(story, index) {
             const image = story.images[this.key];
             if (this.currentImage !== image.url || this.imageChangeTrigger !== this.key) {
@@ -713,5 +686,11 @@ export default {
     padding: 0; /* 패딩 제거 */
     cursor: pointer; /* 마우스 커서를 포인터로 설정 */
     outline: none; /* 누를 때 테두리 제거 */
+}
+.no-stories {
+    margin-top: 100px;
+    color: white;
+    text-align: center;
+    width: 100%; /* 전체 너비를 차지하도록 설정 */
 }
 </style>
